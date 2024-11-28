@@ -10,10 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ca.odoroshchuk.mars_rover_api.response.MarsRoverApiResponse;
+
 public class MarsRoverApiTest {
     
     @Test
-    public void smallTest(){
+    public void apiTest(){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
 
@@ -27,7 +29,7 @@ public class MarsRoverApiTest {
             ObjectMapper mapper = new ObjectMapper(); 
             MarsRoverApiResponse res = mapper.readValue(response.body(), MarsRoverApiResponse.class);
             System.out.println(response.statusCode());
-            System.out.println(res.getPhotos().get(0).getRover().getCameras());
+            System.out.println(res.getPhotos().get(0).getRover());
         } catch (IOException | InterruptedException e){
             // TODO Auto-generated catch block
             e.printStackTrace();

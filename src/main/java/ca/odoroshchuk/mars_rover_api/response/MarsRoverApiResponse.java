@@ -1,4 +1,4 @@
-package ca.odoroshchuk.mars_rover_api;
+package ca.odoroshchuk.mars_rover_api.response;
 
 import java.util.List;
 
