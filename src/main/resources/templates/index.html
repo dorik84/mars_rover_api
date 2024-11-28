@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MARS Rover</title>
 </head>
-<body>
-    <h1>Welcome to MARS Rover App</h1>
-    <h2 th:text="${name}"></h2>
-</body>
+<body class="bg-slate-50">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <header class="bg-white container mx-auto py-8">
+      <h1 class="text-4xl font-bold px-4">Welcome to MARS Rover App</h1>
+    </header>
+    <img th:each="photo : ${roverData.photos}" th:src="${photo.imgSrc}"></img>
+  </body>
 </html>
