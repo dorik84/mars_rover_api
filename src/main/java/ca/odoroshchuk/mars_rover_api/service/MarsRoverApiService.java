@@ -14,10 +14,11 @@ import ca.odoroshchuk.mars_rover_api.response.MarsRoverApiResponse;
 
 @Service
 public class MarsRoverApiService {
-    public MarsRoverApiResponse getRoverData(){
+    public MarsRoverApiResponse getRoverData(String roverName){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=2&api_key=M0Y3IEXJ1I6iUoZSrghj8EvhgMKy1huhjHLYgsif"))
+        // Not important api_key
+                .uri(URI.create("https://api.nasa.gov/mars-photos/api/v1/rovers/"+roverName+"/photos?sol=2&api_key=M0Y3IEXJ1I6iUoZSrghj8EvhgMKy1huhjHLYgsif"))
                 .GET()
                 .build();
 

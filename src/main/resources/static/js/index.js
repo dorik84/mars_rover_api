@@ -1,0 +1,1 @@
+const radioButtons = document.querySelectorAll('input[name="roverName"]');radioButtons.forEach(radioButton => {  radioButton.addEventListener('change', () => {    if (radioButton.checked) {      console.log('Selected rover:', radioButton.id);      document.getElementById('sendRoverName').submit();    }  });});

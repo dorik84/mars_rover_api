@@ -4,12 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MARS Rover</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body class="bg-slate-50">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <header class="bg-white container mx-auto py-8">
-      <h1 class="text-4xl font-bold px-4">Welcome to MARS Rover App</h1>
-    </header>
-    <img th:each="photo : ${roverData.photos}" th:src="${photo.imgSrc}"></img>
+<body >
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <header class="row text-center">
+    <h1 >Welcome to Mars Rover App</h1>
+  </header>
+
+       
+    <div class="container-fluid justify-content-center">
+      <form action="" method="get" id="sendRoverName">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="roverName" id="curiosity" autocomplete="off" value="curiosity" th:checked="${id == radioCkeckedId}" >
+          <label class="btn btn-outline-primary" for="curiosity">Curiosity</label>
+        
+          <input type="radio" class="btn-check" name="roverName" id="opportunity" autocomplete="off" value="opportunity" th:checked="${id == radioCkeckedId}">
+          <label class="btn btn-outline-primary" for="opportunity">Opportunity</label>
+        
+          <input type="radio" class="btn-check" name="roverName" id="spirit" autocomplete="off" value="spirit" th:checked="${id == radioCkeckedId}">
+          <label class="btn btn-outline-primary" for="spirit">Spirit</label>
+        </div>
+      </form>
+        
+
+    <!-- <div class="row">
+      <div class="col-3"></div>
+      <div id="carouselExample" class="carousel slide col-6">
+        <div class="carousel-indicators">
+
+          <button 
+            type="button" 
+            class="mx-0"
+            data-bs-target="#carouselExample"   
+            th:each="photo, stats : ${roverData.photos}" 
+            th:classappend="${stats.first}?'active':null" 
+            th:attr="data-bs-slide-to=${stats.index},aria-current=${stats.first},aria-label=${photo.camera.fullName}"
+            th:if="${stats.index < 10}"></button>
+
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item" th:each="photo, stats : ${roverData.photos}" th:classappend="${stats.first} ? ' active' : ''">
+            <img th:src="${photo.imgSrc}" class="d-block w-100 rounded" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 th:text="${photo.rover.name}"></h5>
+              <p th:text="${photo.camera.fullName}"></p>
+              <p >Photo ID: <span th:text="${photo.id}"></span></p>
+            </div>
+          </div>
+          
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <div class="col-3"></div>
+    </div> -->
+
+    <div class="container-fluid ">
+      <div class="row d-flex w-100 justify-content-center">
+        <div class="col-3" th:each="photo, stats : ${roverData.photos}">
+          <img th:src="${photo.imgSrc}" class="d-block w-100 rounded" alt="...">
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script type="text/javascript" src="/js/index.js"></script>
   </body>
 </html>
