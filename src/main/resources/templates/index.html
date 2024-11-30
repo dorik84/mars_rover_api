@@ -15,23 +15,28 @@
 
        
     <div class="container-fluid justify-content-center">
-      <form action="" method="get" id="sendRoverName">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="roverName" id="curiosity" autocomplete="off" value="curiosity" th:checked="${id == radioCkeckedId}" >
-          <label class="btn btn-outline-primary" for="curiosity">Curiosity</label>
-        
-          <input type="radio" class="btn-check" name="roverName" id="opportunity" autocomplete="off" value="opportunity" th:checked="${id == radioCkeckedId}">
-          <label class="btn btn-outline-primary" for="opportunity">Opportunity</label>
-        
-          <input type="radio" class="btn-check" name="roverName" id="spirit" autocomplete="off" value="spirit" th:checked="${id == radioCkeckedId}">
-          <label class="btn btn-outline-primary" for="spirit">Spirit</label>
+      <form class="d-flex justify-content-center py-3" action="" method="get" id="sendCameraName" >
+        <div th:each="camera, stats : ${cameras}" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
+          <input 
+            type="radio" 
+            class="btn-check" 
+            name="selectedCamera" 
+            
+            th:id="${camera}" 
+            autocomplete="off" 
+            th:value="${camera}" 
+            >
+          <label class="btn btn-outline-primary"  th:for="${camera}" th:text="${camera}"></label>
+
         </div>
       </form>
         
 
-    <!-- <div class="row">
-      <div class="col-3"></div>
-      <div id="carouselExample" class="carousel slide col-6">
+    <div class="row">
+      <div class="col"></div>
+  
+
+      <div id="carouselExample" class="carousel slide col-lg-8 col-md-10 col-sm-12">
         <div class="carousel-indicators">
 
           <button 
@@ -45,6 +50,10 @@
 
         </div>
         <div class="carousel-inner">
+   
+          <div th:if="${roverData.photos.empty}" class="alert alert-secondary" role="alert">
+            No photos to display
+          </div>
           <div class="carousel-item" th:each="photo, stats : ${roverData.photos}" th:classappend="${stats.first} ? ' active' : ''">
             <img th:src="${photo.imgSrc}" class="d-block w-100 rounded" alt="...">
             <div class="carousel-caption d-none d-md-block">
@@ -56,25 +65,25 @@
           
 
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
-        </button>
+        </button> -->
       </div>
-      <div class="col-3"></div>
-    </div> -->
+      <div class="col"></div>
+    </div>
 
-    <div class="container-fluid ">
+    <!-- <div class="container-fluid ">
       <div class="row d-flex w-100 justify-content-center">
         <div class="col-3" th:each="photo, stats : ${roverData.photos}">
           <img th:src="${photo.imgSrc}" class="d-block w-100 rounded" alt="...">
         </div>
       </div>
-    </div>
+    </div> -->
 
   </div>
   <script type="text/javascript" src="/js/index.js"></script>

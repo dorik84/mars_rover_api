@@ -1,5 +1,8 @@
 package ca.odoroshchuk.mars_rover_api.web;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,22 +26,18 @@ public class RootController {
     private MarsRoverApiService roverApiService;
 
     @GetMapping("/")
-    public String getHomeView(ModelMap model, @RequestParam(defaultValue = "curiosity" ) String roverName, @RequestParam(defaultValue = "curiosity" ) String radioCkeckedId) {
-        System.out.println(roverName);
-        MarsRoverApiResponse roverData = roverApiService.getRoverData(roverName);
+    public String getHomeView(ModelMap model, @RequestParam(defaultValue = "FHAZ" ) String selectedCamera) {
+        System.out.println(selectedCamera);
+        MarsRoverApiResponse roverData = roverApiService.getRoverData(selectedCamera);
+
+        List<String> cameras = Arrays.asList("FHAZ", "RHAZ", "MAST", "CHEMCAM", "MAHLI", "MARDI", "NAVCAM");
         model.put("roverData",roverData);
-        model.put("radioCkeckedId",radioCkeckedId);
-        System.out.println(roverData.toString());
+        model.put("selectedCamera",selectedCamera);
+        model.put("cameras",cameras);
+        System.out.println("selectedCamera: "+selectedCamera);
+  
         return "index";
     }
-
-    // @PostMapping("/")
-    // public String getRoverDataByName(ModelMap model, @RequestParam String roverName) {
-    //     MarsRoverApiResponse roverData = roverApiService.getRoverData(roverName);
-    //     model.put("roverData",roverData);
-    //     return "index";
-  
-    // }
     
     
 
