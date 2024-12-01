@@ -10,72 +10,81 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <header class="row text-center">
-    <h1 >Welcome to Mars Rover App</h1>
+    <h1>Welcome to Mars Rover Api App</h1>
   </header>
 
-       
-    <div class="container-fluid justify-content-center">
-      <form class="d-flex justify-content-center py-3" action="" method="get" id="sendCameraName" >
-        <div th:each="camera, stats : ${cameras}" class="btn-group" role="group" aria-label="Basic radio toggle button group" >
-          <input 
-            type="radio" 
-            class="btn-check" 
-            name="selectedCamera" 
-            
-            th:id="${camera}" 
-            autocomplete="off" 
-            th:value="${camera}" 
-            >
-          <label class="btn btn-outline-primary"  th:for="${camera}" th:text="${camera}"></label>
+  <div class="row">
+    <div class="col"></div>
+    <form class="d-flex flex-column col-12 col-lg-8 col-md-10 col-sm-12" action="" method="get" id="photoReq" >
+      <!-- Camera Buttons -->
 
+      <input type="hidden" name="selectedCamera" id="selectedCamera" th:value="${rootDto.selectedCamera}">
+      <div class="input-group mb-3 col-8">
+        <span class="input-group-text">Select Camera</span>
+        <select class="form-select" aria-label="Default select example" id="selectedCameraSelect" >
+          <option th:each="entry : ${rootDto.Cameras}"  th:value="${entry.key}" th:text="${entry.value}" th:selected="${rootDto.selectedCamera==entry.key}"></option>
+        </select>
+      </div>
+
+
+      <!-- Sol input field -->
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="input-group mb-3 col-8">
+          <span class="input-group-text">Enter SOL (Mars Days)</span>
+          <input type="number" min="0" class="form-control"  aria-label="sol" aria-describedby="Enter sol number" th:field="${rootDto.sol}">
+          <button class="btn btn-outline-secondary" type="submit" >Submit</button>
         </div>
-      </form>
+        <div class="col-2"></div>
+      </div>
+
+    </form>
+    <div class="col"></div>
+  </div>
+  <div class="row">
+    <div class="col"></div>
+
+    <div id="carouselExample" class="carousel slide col-12 col-lg-8 col-md-10 col-sm-12">
+
+      <div class="carousel-indicators">
+
+        <button 
+          type="button" 
+          class="mx-0"
+          data-bs-target="#carouselExample"   
+          th:each="photo, stats : ${roverData.photos}" 
+          th:classappend="${stats.first}?'active':null" 
+          th:attr="data-bs-slide-to=${stats.index},aria-current=${stats.first},aria-label=${photo.camera.fullName}"
+          th:if="${stats.index < 10}"></button>
+
+      </div>
+      <div class="carousel-inner">
+  
+        <div th:if="${roverData.photos.empty}" class="alert alert-secondary" role="alert">
+          No photos to display
+        </div>
+        <div class="carousel-item" th:each="photo, stats : ${roverData.photos}" th:classappend="${stats.first} ? ' active' : ''">
+          <img th:src="${photo.imgSrc}" class="d-block w-100 rounded" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5 th:text="${photo.rover.name}"></h5>
+            <p th:text="${photo.camera.fullName}"></p>
+            <p>SOL: <span th:text="${photo.sol}"></span>/<span th:text="${photo.rover.maxSol}"></span>&nbsp&nbsp&nbspPhoto ID: <span th:text="${photo.id}"></span>   </p>
+          </div>
+        </div>
         
 
-    <div class="row">
-      <div class="col"></div>
-  
-
-      <div id="carouselExample" class="carousel slide col-lg-8 col-md-10 col-sm-12">
-        <div class="carousel-indicators">
-
-          <button 
-            type="button" 
-            class="mx-0"
-            data-bs-target="#carouselExample"   
-            th:each="photo, stats : ${roverData.photos}" 
-            th:classappend="${stats.first}?'active':null" 
-            th:attr="data-bs-slide-to=${stats.index},aria-current=${stats.first},aria-label=${photo.camera.fullName}"
-            th:if="${stats.index < 10}"></button>
-
-        </div>
-        <div class="carousel-inner">
-   
-          <div th:if="${roverData.photos.empty}" class="alert alert-secondary" role="alert">
-            No photos to display
-          </div>
-          <div class="carousel-item" th:each="photo, stats : ${roverData.photos}" th:classappend="${stats.first} ? ' active' : ''">
-            <img th:src="${photo.imgSrc}" class="d-block w-100 rounded" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5 th:text="${photo.rover.name}"></h5>
-              <p th:text="${photo.camera.fullName}"></p>
-              <p >Photo ID: <span th:text="${photo.id}"></span></p>
-            </div>
-          </div>
-          
-
-        </div>
-        <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button> -->
       </div>
-      <div class="col"></div>
+      <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button> -->
     </div>
+    <div class="col"></div>
+  </div>
 
     <!-- <div class="container-fluid ">
       <div class="row d-flex w-100 justify-content-center">
