@@ -1,3 +1,10 @@
+let userUID = localStorage.getItem('userUID');
+if (userUID != null) {
+    document.getElementById("userUID").value = userUID;
+} else {
+    localStorage.setItem('userUID', document.getElementById("userUID").value);
+}
+
 // default Camera selection  
 const url = window.location.href;
 const urlObj = new URL(url);

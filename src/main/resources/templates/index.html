@@ -19,6 +19,8 @@
       <!-- Camera Buttons -->
 
       <input type="hidden" name="selectedCamera" id="selectedCamera" th:value="${rootDto.selectedCamera}">
+      <input type="hidden" name="userUID" id="userUID" th:field="${rootDto.userUID}">
+  
       <div class="input-group mb-3 col-8">
         <span class="input-group-text">Select Camera</span>
         <select class="form-select" aria-label="Default select example" id="selectedCameraSelect" >
@@ -37,7 +39,14 @@
         </div>
         <div class="col-2"></div>
       </div>
-
+     
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" th:field="${rootDto.rememberMe}" >
+        <label class="form-check-label" for="rememberMe">
+          Remember Preferences
+        </label>
+      </div>
+      
     </form>
     <div class="col"></div>
   </div>
