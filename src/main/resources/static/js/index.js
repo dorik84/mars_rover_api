@@ -1,9 +1,17 @@
-let userUID = localStorage.getItem('userUID');
-if (userUID != null) {
-    document.getElementById("userUID").value = userUID;
-} else {
-    localStorage.setItem('userUID', document.getElementById("userUID").value);
-}
+// let userId = localStorage.getItem('userId');
+// if (userId == null || userId == '') {
+//     localStorage.setItem('userId', document.getElementById("userId").value);
+// } else {
+//     document.getElementById("userId").value = userId;
+// }
+
+// document.getElementById("rememberMe").addEventListener('change', (event)=>{
+//     if(!event.target.checked) {
+//         localStorage.removeItem('userId')
+//     }else {
+//         localStorage.setItem('userId', document.getElementById("userId").value);
+//     }
+// })
 
 // default Camera selection  
 const url = window.location.href;
@@ -13,7 +21,7 @@ const paramValue = params.get('selectedCamera') || "FHAZ";
 
 
 
-// Send photos request if select option changes
+// Send request if select option changes
 const photoReqForm = document.getElementById('photoReq');
 const selectElement = document.getElementById('selectedCameraSelect');
 const selectedCameraInput = document.getElementById('selectedCamera');

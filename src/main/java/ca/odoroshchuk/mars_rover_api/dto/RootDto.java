@@ -1,27 +1,37 @@
 package ca.odoroshchuk.mars_rover_api.dto;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Value;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 
 @Data
-public class RootDto {
-   
-    private String selectedCamera;
-    private Integer sol;
+public class RootDto extends UserPreferences {
+
     private HashMap<String,String> cameras = new HashMap<String,String> ();
-    private Boolean rememberMe;
-    private UUID userUID;
 
     public RootDto(){
-        this.userUID = UUID.randomUUID();
-        this.rememberMe = false;
-        this.selectedCamera = "FHAZ";
-        this.sol = 1000;
+        this.populateCameras();
+    }
+
+
+    public RootDto(UserPreferences userPreferences){
+        super(
+            userPreferences.getUserId(),
+            userPreferences.getSelectedCamera(),
+            userPreferences.getSol(),
+            userPreferences.getRememberMe()
+        );
+        this.populateCameras();
+    }
+
+    public UserPreferences getUserPreferences(){
+        return new UserPreferences(this.getUserId(), this.getSelectedCamera(), this.getSol(), this.getRememberMe());
+    }
+
+    private void populateCameras(){
         this.cameras.put("FHAZ","Front Hazard Avoidance Camera");
         this.cameras.put("RHAZ","Rear Hazard Avoidance Camera");
         this.cameras.put("MAST","Mast Camera");

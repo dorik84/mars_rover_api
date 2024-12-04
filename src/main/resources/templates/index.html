@@ -15,11 +15,11 @@
 
   <div class="row">
     <div class="col"></div>
-    <form class="d-flex flex-column col-12 col-lg-8 col-md-10 col-sm-12" action="" method="get" id="photoReq" >
+    <form class="d-flex flex-column col-12 col-lg-8 col-md-10 col-sm-12" action="" method="post" id="photoReq" >
       <!-- Camera Buttons -->
 
       <input type="hidden" name="selectedCamera" id="selectedCamera" th:value="${rootDto.selectedCamera}">
-      <input type="hidden" name="userUID" id="userUID" th:field="${rootDto.userUID}">
+      <!-- <input type="hidden" name="userId" id="userId" th:field="${rootDto.userId}"> -->
   
       <div class="input-group mb-3 col-8">
         <span class="input-group-text">Select Camera</span>
@@ -41,7 +41,7 @@
       </div>
      
       <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" th:field="${rootDto.rememberMe}" >
+        <input class="form-check-input" type="checkbox" th:field="${rootDto.rememberMe}" id="rememberMe" >
         <label class="form-check-label" for="rememberMe">
           Remember Preferences
         </label>

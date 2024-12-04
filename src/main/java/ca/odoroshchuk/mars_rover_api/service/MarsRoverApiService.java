@@ -5,22 +5,29 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Optional;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ca.odoroshchuk.mars_rover_api.dto.RootDto;
+import ca.odoroshchuk.mars_rover_api.dto.UserPreferences;
+import ca.odoroshchuk.mars_rover_api.repository.UserPreferencesRepository;
 import ca.odoroshchuk.mars_rover_api.response.MarsRoverApiResponse;
-import lombok.extern.slf4j.Slf4j;
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class MarsRoverApiService {
-    public MarsRoverApiResponse getRoverData(/*String selectedCamera, Integer sol*/RootDto rootDto){
-        Integer sol = rootDto.getSol();
-        String selectedCamera = rootDto.getSelectedCamera();
-        System.out.println(sol);
-        System.out.println(URI.create("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol="+sol+"&camera="+selectedCamera+"&api_key=M0Y3IEXJ1I6iUoZSrghj8EvhgMKy1huhjHLYgsif").toString());
+    @Autowired
+    private UserPreferencesRepository userPreferencesRepository;
+
+    public MarsRoverApiResponse getRoverData(UserPreferences userPreferences){
+        Integer sol = userPreferences.getSol();
+        String selectedCamera = userPreferences.getSelectedCamera();
+        
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
         // Not important api_key
@@ -42,4 +49,26 @@ public class MarsRoverApiService {
         }
         return body;
     }
+
+
+
+    public UserPreferences save(UserPreferences userPreferences) {
+        UserPreferences savedPreferences = userPreferencesRepository.save(userPreferences);
+        return savedPreferences;
+    }
+
+
+
+    public UserPreferences findPreferencesByUserId(Long userId) {
+        UserPreferences rootDto = userPreferencesRepository.findByUserId(userId).orElse(new UserPreferences());
+        return rootDto;
+    }
+
+
+    @Transactional
+    public void delete(UserPreferences userPreferences) {
+        userPreferencesRepository.deleteByUserId(userPreferences.getUserId());
+    }
+
+  
 }
