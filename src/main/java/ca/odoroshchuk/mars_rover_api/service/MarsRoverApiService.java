@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ca.odoroshchuk.mars_rover_api.config.ApiKeyProvider;
 import ca.odoroshchuk.mars_rover_api.dto.UserPreferences;
 import ca.odoroshchuk.mars_rover_api.repository.UserPreferencesRepository;
 import ca.odoroshchuk.mars_rover_api.response.MarsRoverApiResponse;
@@ -25,16 +26,20 @@ public class MarsRoverApiService {
     @Autowired
     private UserPreferencesRepository userPreferencesRepository;
 
+    @Autowired
+    private ApiKeyProvider apiKeyProvider;
+
     @Cacheable(value = "apiCache", key = "#userPreferences")
     public MarsRoverApiResponse getRoverData(UserPreferences userPreferences){
         System.out.println("getRoverData triggered");
         Integer sol = userPreferences.getSol();
         String selectedCamera = userPreferences.getSelectedCamera();
         
+        String apiKey = apiKeyProvider.getApiKey();
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
         // Not important api_key
-                .uri(URI.create("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol="+sol+"&camera="+selectedCamera+"&api_key=M0Y3IEXJ1I6iUoZSrghj8EvhgMKy1huhjHLYgsif"))
+                .uri(URI.create("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol="+sol+"&camera="+selectedCamera+"&api_key="+apiKey))
                 .GET()
                 .build();
 
