@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +25,9 @@ public class MarsRoverApiService {
     @Autowired
     private UserPreferencesRepository userPreferencesRepository;
 
+    @Cacheable(value = "apiCache", key = "#userPreferences")
     public MarsRoverApiResponse getRoverData(UserPreferences userPreferences){
+        System.out.println("getRoverData triggered");
         Integer sol = userPreferences.getSol();
         String selectedCamera = userPreferences.getSelectedCamera();
         

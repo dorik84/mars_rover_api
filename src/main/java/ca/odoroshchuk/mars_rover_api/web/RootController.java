@@ -41,10 +41,10 @@ public class RootController {
     }
 
     @GetMapping("/")
-    public String getHomeView(Model model, @ModelAttribute("rootDto") RootDto rootDto,  @ModelAttribute("userPreferences") UserPreferences userPreferences) {
+    public String setUserPreferences(Model model, @ModelAttribute("rootDto") RootDto rootDto,  @ModelAttribute("userPreferences") UserPreferences userPreferences) {
         // userPreferences = new UserPreferences();
         System.out.println("------GetMapping");
-        System.out.println(rootDto);
+        // System.out.println(rootDto);
         
         // System.out.println(userId);
         if (Boolean.TRUE.equals(userPreferences.getRememberMe())){
