@@ -19,7 +19,12 @@ const urlObj = new URL(url);
 const params = new URLSearchParams(urlObj.search);
 const paramValue = params.get('selectedCamera') || "FHAZ";
 
-
+// On Submit ui logic
+const submitBtn = document.getElementById("submitButton");
+const enableLoadingSpinner = () => {
+    submitBtn.innerHTML=`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>`;
+    submitBtn.innerHTML+=`<span role="status">Loading...</span>`
+}
 
 // Send request if select option changes
 const photoReqForm = document.getElementById('photoReq');
@@ -27,7 +32,8 @@ const selectElement = document.getElementById('selectedCameraSelect');
 const selectedCameraInput = document.getElementById('selectedCamera');
 selectElement.addEventListener('change', function() {
     selectedCameraInput.value = selectElement.value;
-    photoReqForm.submit()
+    photoReqForm.submit();
+    enableLoadingSpinner();
 });
 
 
@@ -39,7 +45,12 @@ inputField.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         photoReqForm.submit();
+        enableLoadingSpinner();
     }
 });
 
 
+
+submitBtn.addEventListener('click',()=>{
+    enableLoadingSpinner();
+});
