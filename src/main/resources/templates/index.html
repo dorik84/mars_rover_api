@@ -15,7 +15,7 @@
 
   <div class="row">
     <div class="col"></div>
-    <form class="d-flex flex-column col-12 col-lg-8 col-md-10 col-sm-12" action="" method="post" id="photoReq" >
+    <form class="d-flex flex-column col-10 col-lg-6 col-md-8 col-sm-10" action="" method="post" id="photoReq" >
       <!-- Camera Buttons -->
 
       <input type="hidden" name="selectedCamera" id="selectedCamera" th:value="${rootDto.selectedCamera}">
@@ -53,7 +53,7 @@
   <div class="row">
     <div class="col"></div>
 
-    <div id="carouselExample" class="carousel slide col-12 col-lg-8 col-md-10 col-sm-12">
+    <div id="carouselExample" class="carousel slide col-10 col-lg-6 col-md-8 col-sm-10">
 
       <div class="carousel-indicators">
 
@@ -64,7 +64,7 @@
           th:each="photo, stats : ${roverData.photos}" 
           th:classappend="${stats.first}?'active':null" 
           th:attr="data-bs-slide-to=${stats.index},aria-current=${stats.first},aria-label=${photo.camera.fullName}"
-          th:if="${stats.index < 10}"></button>
+          ></button>
 
       </div>
       <div class="carousel-inner">
@@ -83,25 +83,17 @@
         
 
       </div>
-      <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
-      </button> -->
+      </button>
     </div>
     <div class="col"></div>
   </div>
-
-    <!-- <div class="container-fluid ">
-      <div class="row d-flex w-100 justify-content-center">
-        <div class="col-3" th:each="photo, stats : ${roverData.photos}">
-          <img th:src="${photo.imgSrc}" class="d-block w-100 rounded" alt="...">
-        </div>
-      </div>
-    </div> -->
 
   </div>
   <script type="text/javascript" src="/js/index.js"></script>

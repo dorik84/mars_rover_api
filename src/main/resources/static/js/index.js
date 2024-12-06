@@ -42,12 +42,4 @@ inputField.addEventListener('keydown', function(event) {
     }
 });
 
-        // document.addEventListener('DOMContentLoaded', function() {
-            
-        //     document.addEventListener('click', function(event) {
-        //       if (!inputField.contains(event.relatedTarget)){
-        //           photoReqForm.submit();
-        //         }
-        //     });
-        // });
 
